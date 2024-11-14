@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Enigma Arbitrator</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+       
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="title">Enigma Arbitrator</h1>
+
+            <div class="cards-container">
+                <div class="card" onclick="showEncryption()">
+                    <h2><i class="fas fa-lock"></i> Encrypt</h2>
+                    <p>Encrypt your message using the Enigma Arbitrator
+                        machine</p>
+                </div>
+                <div class="card" onclick="showDecryption()">
+                    <h2><i class="fas fa-unlock"></i> Decrypt</h2>
+                    <p>Decrypt a message using saved Enigma settings</p>
+                </div>
+            </div>
+
+            <div id="enigma-encrypt" class="enigma-machine">
+                <div class="rotor-section">
+                    <h3 class="section-title"><i class="fas fa-cogs"></i> Rotor
+                        Configuration</h3>
+                    <div class="rotor-selection">
+                        <div class="rotor-unit">
+                            <select id="rotor1">
+                                <option value="0">Rotor 1</option>
+                            </select>
+                            <input type="number" id="position1" min="1" max="26"
+                                value="1" placeholder="Position">
+                        </div>
+                        <div class="rotor-unit">
+                            <select id="rotor2">
+                                <option value="1">Rotor 2</option>
+                            </select>
+                            <input type="number" id="position2" min="1" max="26"
+                                value="1" placeholder="Position">
+                        </div>
+                        <div class="rotor-unit">
+                            <select id="rotor3">
+                                <option value="2">Rotor 3</option>
+                            </select>
+                            <input type="number" id="position3" min="1" max="26"
+                                value="1" placeholder="Position">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reflector-section">
+                    <h3 class="section-title"><i class="fas fa-sync"></i>
+                        Reflector</h3>
+                    <select id="reflector">
+                        <option value="0">Reflector A</option>
+                    </select>
+                </div>
+
+                <div class="plugboard-section">
+                    <h3 class="section-title"><i class="fas fa-plug"></i>
+                        Plugboard</h3>
+                    <div class="plugboard" id="plugboard"></div>
+                </div>
+
+                <div class="lampboard-section">
+                    <h3 class="section-title"><i class="fas fa-lightbulb"></i>
+                        Lampboard</h3>
+                    <div class="lampboard" id="lampboard"></div>
+                </div>
+
+                <textarea id="input-text"
+                    placeholder="Enter text to encrypt..."></textarea>
+                <textarea id="output-text" readonly
+                    placeholder="Encrypted text will appear here..."></textarea>
+
+                <div class="button-group">
+                    <button onclick="processText('encrypt')">
+                        <i class="fas fa-lock"></i> Encrypt
+                    </button>
+                    <button class="secondary" onclick="downloadReport()">
+                        <i class="fas fa-download"></i> Download Settings
+                    </button>
+                </div>
+            </div>
+
+            <div id="enigma-decrypt" class="enigma-machine">
+                <div class="settings-form">
+                    <h3 class="section-title"><i class="fas fa-cog"></i>
+                        Encryption Settings</h3>
+                    <label><i class="fas fa-cogs"></i> Rotor Settings
+                        (comma-separated numbers 0-7):</label>
+                    <input type="text" id="decrypt-rotors" placeholder="0,1,2">
+
+                    <label><i class="fas fa-sort-numeric-up"></i> Rotor
+                        Positions (comma-separated numbers 1-26):</label>
+                    <input type="text" id="decrypt-positions"
+                        placeholder="1,1,1">
+
+                    <label><i class="fas fa-sync"></i> Reflector (0-4):</label>
+                    <input type="number" id="decrypt-reflector" min="0" max="4"
+                        value="0">
+
+                    <label><i class="fas fa-plug"></i> Plugboard Pairs
+                        (comma-separated pairs, e.g., AB,CD,EF):</label>
+                    <input type="text" id="decrypt-plugboard"
+                        placeholder="AB,CD,EF">
+
+                    <label><i class="fas fa-random"></i> Rotor Wirings
+                        (comma-separated 26-letter strings):</label>
+                    <input type="text" id="decrypt-rotor-wirings"
+                        placeholder="EKMFLGDQVZNTOWYHXUSPAIBRCJ,AJDKSIRUXBLHWTMCQGZNPYFVOE,...">
+
+                    <label><i class="fas fa-exchange-alt"></i> Reflector Wiring
+                        (26-letter string):</label>
+                    <input type="text" id="decrypt-reflector-wiring"
+                        placeholder="EJMZALYXVBWFCRQUONTSPIKHGD">
+                </div>
+
+                <textarea id="decrypt-input"
+                    placeholder="Enter text to decrypt..."></textarea>
+                <textarea id="decrypt-output" readonly
+                    placeholder="Decrypted text will appear here..."></textarea>
+
+                <div class="button-group">
+                    <button onclick="processText('decrypt')">
+                        <i class="fas fa-unlock"></i> Decrypt
+                    </button>
+                </div>
+            </div>
+        </div>
+       
+    </body>
+</html>
